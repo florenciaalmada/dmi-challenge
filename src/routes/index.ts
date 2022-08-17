@@ -1,4 +1,3 @@
-import axios from "axios";
 import { FastifyInstance } from "fastify";
 import { WeatherRequest } from "../controllers/types";
 import WeatherController from "../controllers/WeatherController";
