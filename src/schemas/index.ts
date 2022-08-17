@@ -6,9 +6,9 @@ const error = {
       description: "Error status",
     },
     title: {
-        type: "string",
-        description: "Error message",
-      },
+      type: "string",
+      description: "Error message",
+    },
   },
   required: ["status", "title"],
 };

@@ -11,7 +11,7 @@ export default fastifyPlugin(
     opts: FastifyPluginOptions,
     next: (error?: FastifyError) => void
   ) => {
-    cache.on("expired", function (key, value) {
+    cache.on("expired", () => {
       fastify.log.info(CACHE_MESSAGES.EXPIRED_CACHE);
     });
 

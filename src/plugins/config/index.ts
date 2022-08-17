@@ -2,6 +2,16 @@ import fastifyPlugin from "fastify-plugin";
 import fastifyEnv from "@fastify/env";
 import { FastifyError, FastifyInstance, FastifyPluginOptions } from "fastify";
 
+declare module "fastify" {
+  interface FastifyInstance {
+    config: {
+      PORT: string;
+      OPENWEATHER_API_KEY: string;
+      OPENWEATHER_BASE_URL: string;
+    };
+  }
+}
+
 export default fastifyPlugin(
   (
     fastify: FastifyInstance,

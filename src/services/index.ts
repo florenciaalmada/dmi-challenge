@@ -1,20 +1,37 @@
 import axios from "axios";
+import { URL } from "url";
 import { DEFAULT_TEMP_TO_COMPARE } from "./constants";
-import { LatLonData, WeatherService } from "./types";
-const getTemp = async (lat: string, lon: string) => {
-  const path = `${process.env.OPENWEATHER_BASE_URL}onecall?lat=${lat}&lon=${lon}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`;
-  const response = await axios.get(path);
-  const temp = response.data?.current?.temp;
-  return temp;
+import { LatLonData, WeatherConfig, WeatherService } from "./types";
+
+export const getTemp = async (
+  lat: string,
+  lon: string,
+  config: WeatherConfig
+) => {
+  const url = new URL(
+    `/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${config.OPENWEATHER_API_KEY}`,
+    config.OPENWEATHER_BASE_URL
+  );
+  const response = await axios.get(url.href);
+  return response;
 };
 
-const weatherService: WeatherService = async (data: LatLonData) => {
-  const { lat, lon, tempToCompare } = data;
-  const temp = await getTemp(lat, lon);
-  if (!tempToCompare) {
-    return DEFAULT_TEMP_TO_COMPARE > temp;
+const weatherService: WeatherService = async (
+  data: LatLonData,
+  config: WeatherConfig
+) => {
+  try {
+    const { lat, lon, tempToCompare } = data;
+    const response = await getTemp(lat, lon, config);
+    const temp = response.data?.current?.temp;
+
+    if (!tempToCompare) {
+      return DEFAULT_TEMP_TO_COMPARE > temp;
+    }
+    return tempToCompare > temp;
+  } catch (err) {
+    console.log(err);
   }
-  return tempToCompare > temp;
 };
 
 export default weatherService;
