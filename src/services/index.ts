@@ -9,16 +9,12 @@ const getTemp = async (lat: string, lon: string) => {
 };
 
 const weatherService: WeatherService = async (data: LatLonData) => {
-  try {
-    const { lat, lon, tempToCompare } = data;
-    const temp = await getTemp(lat, lon);
-    if (!tempToCompare) {
-      return DEFAULT_TEMP_TO_COMPARE > temp;
-    }
-    return tempToCompare > temp;
-  } catch (err) {
-    console.log(err);
+  const { lat, lon, tempToCompare } = data;
+  const temp = await getTemp(lat, lon);
+  if (!tempToCompare) {
+    return DEFAULT_TEMP_TO_COMPARE > temp;
   }
+  return tempToCompare > temp;
 };
 
 export default weatherService;

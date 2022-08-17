@@ -1,12 +1,16 @@
 const error = {
   type: "object",
   properties: {
-    error: {
+    status: {
       type: "string",
-      description: "Error message",
+      description: "Error status",
     },
+    title: {
+        type: "string",
+        description: "Error message",
+      },
   },
-  required: ["error"],
+  required: ["status", "title"],
 };
 
 const weatherSchema = {
