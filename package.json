@@ -6,7 +6,10 @@
   "scripts": {
     "lint": "eslint . --ext .ts --fix",
     "test": "jest",
-    "dev": "nodemon"
+    "dev": "nodemon",
+    "clean": "rm -rf dist",
+    "build": "node_modules/.bin/tsc --build .",
+    "prod": "npm run clean && npm run build && node dist/server.js"
   },
   "keywords": [],
   "author": "",

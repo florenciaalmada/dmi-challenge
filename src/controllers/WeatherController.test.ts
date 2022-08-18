@@ -55,6 +55,25 @@ describe("Weather Controller", () => {
         headers: {},
         body: {},
         params: {},
+        query: { lat: "-33.1231585" },
+      };
+      result = await weatherController.getWeather(request, reply);
+    });
+    it("should throw an error with status 400", async () => {
+      expect(result.body.status).toEqual("400");
+    });
+    it("should throw an error with message 'wrong longitude'", async () => {
+      expect(result.body.title).toEqual("wrong longitude");
+    });
+  });
+
+  describe("if one of the parameters are not sent", () => {
+    let result: any;
+    beforeEach(async () => {
+      request = {
+        headers: {},
+        body: {},
+        params: {},
         query: { lat: "1", lon: "23523490502435245" },
       };
       result = await weatherController.getWeather(request, reply);
@@ -66,7 +85,7 @@ describe("Weather Controller", () => {
       expect(result.body.title).toEqual("wrong longitude");
     });
   });
-  describe("if lat or lon are not sent", () => {
+  describe("if lat and lon are not sent", () => {
     let result: any;
     beforeEach(async () => {
       request = {
@@ -77,10 +96,8 @@ describe("Weather Controller", () => {
       };
       result = await weatherController.getWeather(request, reply);
     });
-    it("should throw an error with status 400", async () => {
-      console.log(result);
-      console.log(result);
-      expect(result.body.status).toEqual("400");
+    it("should use default parameters for lat and lon and return a boolean", async () => {
+      expect(typeof result.body).toBe("boolean");
     });
   });
 });

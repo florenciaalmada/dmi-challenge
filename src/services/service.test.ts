@@ -17,7 +17,7 @@ describe("getTemp Function", () => {
       const lat = "-33.13067";
       const lon = "-64.34992";
 
-      const result = await getTemp(lat, lon, config);
+      const result = await getTemp(config, lat, lon);
 
       expect(result).toEqual(temp);
     });
@@ -28,7 +28,7 @@ describe("getTemp Function", () => {
       const lon = "-6";
       try {
         mockedAxios.get.mockRejectedValueOnce(new Error("error"));
-        await getTemp(lat, lon, config);
+        await getTemp(config, lat, lon);
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
       } catch (err: any) {
         expect(err.message).toEqual("error");
