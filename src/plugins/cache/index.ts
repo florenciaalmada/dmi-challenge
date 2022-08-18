@@ -17,9 +17,14 @@ export default fastifyPlugin(
 
     fastify.addHook("onRequest", async (request, reply) => {
       if (request.method === HTTP_METHODS.GET) {
-        const response = cache.get(request.url);
+        const response: any = cache.get(request.url);
         if (response) {
-          reply.code(200).send(response);
+          const parsedResponse = JSON.parse(response);
+          if (parsedResponse.status && parsedResponse.title) {
+            reply.code(parsedResponse.status).send(parsedResponse);
+          } else {
+            reply.code(200).send(response);
+          }
         }
       }
     });

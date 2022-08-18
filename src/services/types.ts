@@ -1,6 +1,6 @@
 export type LatLonData = {
-  lat: string;
-  lon: string;
+  lat?: string;
+  lon?: string;
   tempToCompare?: string;
 };
 

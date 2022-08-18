@@ -11,7 +11,7 @@ const WeatherController = (fastify: FastifyInstance) => {
     try {
       const config = fastify.config;
       const { lat, lon, tempToCompare } = request.query;
-      const responseTempData = await getTemp(lat, lon, config);
+      const responseTempData = await getTemp(config, lat, lon);
       const temp = responseTempData.data.current.temp;
       const response = weatherService(temp, tempToCompare);
       return reply.send(response);

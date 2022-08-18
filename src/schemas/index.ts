@@ -7,7 +7,6 @@ const weatherSchema = {
       lon: { type: "string" },
       tempToCompare: { type: "number" },
     },
-    required: ["lat", "lon"],
   },
   response: {
     200: {

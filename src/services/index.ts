@@ -1,13 +1,18 @@
 import axios from "axios";
+import { LatLonDefault } from "../controllers/constants";
 import { URL } from "url";
 import { DEFAULT_TEMP_TO_COMPARE } from "./constants";
 import { WeatherConfig, WeatherService } from "./types";
 
 export const getTemp = async (
-  lat: string,
-  lon: string,
-  config: WeatherConfig
+  config: WeatherConfig,
+  lat?: string,
+  lon?: string
 ) => {
+  if (!lat && !lon) {
+    lat = LatLonDefault.LAT_DEFAULT;
+    lon = LatLonDefault.LON_DEFAULT;
+  }
   const url = new URL(
     `/data/2.5/onecall?lat=${lat}&lon=${lon}&units=metric&appid=${config.OPENWEATHER_API_KEY}`,
     config.OPENWEATHER_BASE_URL
