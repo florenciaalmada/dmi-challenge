@@ -1,8 +1,4 @@
-
 # Weather App
-
-
-
 
 ## Environment Variables
 
@@ -13,7 +9,6 @@ To run this project, you will need to add the following environment variables to
 `OPENWEATHER_API_KEY=<your-api-key>`
 
 `OPENWEATHER_BASE_URL=https://api.openweathermap.org`
-
 
 ## Run Locally
 
@@ -47,6 +42,11 @@ Start the server
   npm run dev
 ```
 
+## Run Prod
+
+```bash
+  npm run prod
+```
 
 ## Running Tests
 
@@ -56,12 +56,10 @@ To run tests, run the following command
   npm run test
 ```
 
-
-## Running Linter 
+## Running Linter
 
 To run linter, run the following command
 
 ```bash
   npm run lint
 ```
-
