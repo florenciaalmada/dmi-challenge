@@ -11,6 +11,6 @@ export type WeatherConfig = {
 };
 
 export type WeatherService = (
-  data: LatLonData,
-  config: WeatherConfig
-) => Promise<boolean | undefined>;
+  temp: string,
+  tempToCompare?: string
+) => boolean | undefined;

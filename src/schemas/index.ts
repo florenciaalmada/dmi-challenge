@@ -1,18 +1,3 @@
-const error = {
-  type: "object",
-  properties: {
-    status: {
-      type: "string",
-      description: "Error status",
-    },
-    title: {
-      type: "string",
-      description: "Error message",
-    },
-  },
-  required: ["status", "title"],
-};
-
 const weatherSchema = {
   title: "Weather comparision",
   querystring: {
@@ -28,8 +13,6 @@ const weatherSchema = {
     200: {
       type: "boolean",
     },
-    "4xx": error,
-    "5xx": error,
   },
 };
 

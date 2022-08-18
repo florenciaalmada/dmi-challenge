@@ -4,6 +4,7 @@ import weatherSchema from "../schemas";
 
 export default async (fastify: FastifyInstance): Promise<void> => {
   const weatherController = WeatherController(fastify);
+
   fastify.route({
     method: "GET",
     url: "/weather",

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FastifyInstance, FastifyReply } from "fastify";
-import weatherService from "../services";
+import { getTemp, weatherService } from "../services";
 import { WeatherRequest } from "./types";
 
 const WeatherController = (fastify: FastifyInstance) => {
@@ -10,12 +10,15 @@ const WeatherController = (fastify: FastifyInstance) => {
   ): Promise<FastifyReply> => {
     try {
       const config = fastify.config;
-      const response = await weatherService(request.query, config);
+      const { lat, lon, tempToCompare } = request.query;
+      const responseTempData = await getTemp(lat, lon, config);
+      const temp = responseTempData.data.current.temp;
+      const response = weatherService(temp, tempToCompare);
       return reply.send(response);
     } catch (err: any) {
-      return reply.code(err.data.cod).send({
-        status: err.data.cod,
-        title: err.data.message,
+      return reply.code(err.response.data.cod).send({
+        status: err.response.data.cod,
+        title: err.response.data.message,
       });
     }
   };

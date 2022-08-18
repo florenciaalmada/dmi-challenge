@@ -1,7 +1,7 @@
 import axios from "axios";
 import { URL } from "url";
 import { DEFAULT_TEMP_TO_COMPARE } from "./constants";
-import { LatLonData, WeatherConfig, WeatherService } from "./types";
+import { WeatherConfig, WeatherService } from "./types";
 
 export const getTemp = async (
   lat: string,
@@ -13,25 +13,16 @@ export const getTemp = async (
     config.OPENWEATHER_BASE_URL
   );
   const response = await axios.get(url.href);
+
   return response;
 };
 
-const weatherService: WeatherService = async (
-  data: LatLonData,
-  config: WeatherConfig
+export const weatherService: WeatherService = (
+  temp: string,
+  tempToCompare?: string
 ) => {
-  try {
-    const { lat, lon, tempToCompare } = data;
-    const response = await getTemp(lat, lon, config);
-    const temp = response.data?.current?.temp;
-
-    if (!tempToCompare) {
-      return DEFAULT_TEMP_TO_COMPARE > temp;
-    }
-    return tempToCompare > temp;
-  } catch (err) {
-    console.log(err);
+  if (!tempToCompare) {
+    return Number(temp) > DEFAULT_TEMP_TO_COMPARE;
   }
+  return Number(temp) > Number(tempToCompare);
 };
-
-export default weatherService;
